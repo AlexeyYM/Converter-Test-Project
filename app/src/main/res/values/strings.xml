@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Конвертер валют beta</string>
+
+    <string name="inputOldText">Введите сумму в старых рублях:</string>
+    <string name="inputText">введите сюда сумму</string>
+    <string name="conButtonText">Конвертировать</string>
+    <string name="outputOldText">Сумма в новых рублях</string>
+    <string name="textInputNew">Введите сумму в новых рублях:</string>
+    <string name="outputNewText">Сумма в старых рублях</string>
+    <string name="convTextOldInput">Поле для ввода суммы в старых рублях:</string>
+    <string name="convTextNewInput">Поле для вводе суммы в новых рублях:</string>
+    <string name="convOutputText">Сумма в долларах</string>
+
+    <string name="tab_item_converter">Конвертер</string>
+    <string name="tab_item_denomination">Деноминатор</string>
+
+    <string name="action_settings">Стиль</string>
+    <string name="action_convert">Конвертер валюты</string>
+    <string name="action_denomination">Конвертер рублей</string>
+
+
+    <string name="choiceThemeTitle">Выберите тему:</string>
+</resources>
