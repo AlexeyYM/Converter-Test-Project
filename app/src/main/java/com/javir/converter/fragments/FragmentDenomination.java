@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 import com.javir.converter.R;
 
-/**
- * Created by Элио on 08.02.2017.
- */
 public class FragmentDenomination extends AbstractTabFragment {
     private static final int LAYOUT = R.layout.layout_fragment_denomination;
 

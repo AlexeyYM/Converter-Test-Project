@@ -12,9 +12,6 @@ import com.javir.converter.fragments.FragmentDenomination;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Элио on 11.02.2017.
- */
 public class TabsPagerFragmentAdapter extends FragmentPagerAdapter {
     private Map<Integer, AbstractTabFragment> tabs;
     private Context context;

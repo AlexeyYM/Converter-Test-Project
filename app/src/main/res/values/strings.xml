@@ -14,10 +14,11 @@
     <string name="tab_item_converter">Конвертер</string>
     <string name="tab_item_denomination">Деноминатор</string>
 
-    <string name="action_settings">Стиль</string>
+    <string name="action_settings">Тема</string>
     <string name="action_convert">Конвертер валюты</string>
     <string name="action_denomination">Конвертер рублей</string>
 
 
     <string name="choiceThemeTitle">Выберите тему:</string>
+    <string name="choiceThemePositiveButton">Выбрать</string>
 </resources>

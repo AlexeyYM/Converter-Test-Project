@@ -1,23 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeWhite" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/whiteColorPrimary</item>
         <item name="colorPrimaryDark">@color/whiteColorPrimaryDark</item>
         <item name="android:textColorPrimary">@color/whiteTextColorPrimary</item>
         <item name="android:windowBackground">@color/whiteWindowBackground</item>
     </style>
 
-
-
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+    <style name="AppThemeBlack" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/blackColorPrimary</item>
+        <item name="colorPrimaryDark">@color/blackColorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/blackTextColorPrimary</item>
+        <item name="android:windowBackground">@color/blackWindowBackground</item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:textColorHint">@color/blackTextColor</item>
     </style>
-
-
-
 </resources>
