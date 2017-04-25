@@ -1,7 +1,9 @@
 package com.javir.converter.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.javir.converter.Constants;
+import com.javir.converter.MainActivity;
 import com.javir.converter.R;
 
 public class FragmentConverter extends AbstractTabFragment {
@@ -18,6 +22,8 @@ public class FragmentConverter extends AbstractTabFragment {
 
     private Button convOldButton;
     private Button convNewButton;
+    private SharedPreferences sharedPreferences;
+    private double currency;
 
     public static FragmentConverter getInstance(Context context) {
         Bundle args = new Bundle();
@@ -33,6 +39,9 @@ public class FragmentConverter extends AbstractTabFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences(Constants.PREFERENCE, Context.MODE_PRIVATE);
+        currency = sharedPreferences.getFloat(Constants.PREFERENCE_CURRENCY, 2.0f);
 
         convOldButton = ((Button) view.findViewById(R.id.convOldButton));
         convNewButton = ((Button) view.findViewById(R.id.convNewButton));
@@ -64,13 +73,13 @@ public class FragmentConverter extends AbstractTabFragment {
         }
 
         double inputValue = Double.parseDouble(inputOldSum.getText().toString());
-        double outputValue = convertOld(inputValue);
+        double outputValue = convertOld(inputValue, currency);
 
         outputOldSum.setText(String.format("$%,.2f", outputValue));
     }
 
-    public double convertOld(double d) {
-        return d / 20000;
+    public double convertOld(double inputValue, double currency) {
+        return inputValue / (currency * 10000);
     }
 
     public void convNew() {
@@ -83,13 +92,13 @@ public class FragmentConverter extends AbstractTabFragment {
         }
 
         double inputValue = Double.parseDouble(inputOldSum.getText().toString());
-        double outputValue = convertNew(inputValue);
+        double outputValue = convertNew(inputValue, currency);
 
         outputOldSum.setText(String.format("$%,.2f", outputValue));
     }
 
-    public double convertNew(double d) {
-        return d / 2;
+    public double convertNew(double inputValue, double currency) {
+        return inputValue / currency;
     }
 
     public void setContext(Context context) {

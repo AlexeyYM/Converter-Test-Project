@@ -5,7 +5,13 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_theme"
-        android:orderInCategory="100"
+        android:orderInCategory="10"
         android:title="@string/action_settings"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/choice_currency"
+        android:orderInCategory="20"
+        android:title="@string/choice_currency"
         app:showAsAction="never"/>
 </menu>
