@@ -13,12 +13,21 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.javir.converter.adapter.TabsPagerFragmentAdapter;
+import com.javir.converter.dto.CurrencyDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final int LAYOUT = R.layout.activity_main;
 
     private Toolbar toolbar;
     private ViewPager viewPager;
+    private List<CurrencyDTO> currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         initToolbar();
         initTabLayout();
+//        getCurrency();
     }
 
     private void choiceTheme() {
@@ -142,5 +152,20 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = ((TabLayout) findViewById(R.id.tabLayout));
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void getCurrency() {
+        App.getApi().getData("Periodicity=0").enqueue(new Callback<List<CurrencyDTO>>() {
+            @Override
+            public void onResponse(Call<List<CurrencyDTO>> call, Response<List<CurrencyDTO>> response) {
+                currency = new ArrayList<>();
+                currency.addAll(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<CurrencyDTO>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, getText(R.string.toastGetCurrencyFailed), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

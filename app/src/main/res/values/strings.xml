@@ -13,6 +13,7 @@
 
     <string name="tab_item_converter">Конвертер</string>
     <string name="tab_item_denomination">Деноминатор</string>
+    <string name="tab_item_currencyList">Курс валют</string>
 
     <string name="action_settings">Тема</string>
     <string name="choice_currency">Выбор валюты</string>
@@ -23,4 +24,6 @@
     <string name="choiceThemeTitle">Выберите тему:</string>
     <string name="choiceCurrencyTitle">Выберите валюту:</string>
     <string name="choiceThemePositiveButton">Выбрать</string>
+
+    <string name="toastGetCurrencyFailed">Не удалось загрузить курс валют!</string>
 </resources>
