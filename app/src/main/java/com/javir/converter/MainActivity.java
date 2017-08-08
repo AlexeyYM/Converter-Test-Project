@@ -1,8 +1,10 @@
 package com.javir.converter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -27,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ViewPager viewPager;
+
     private List<CurrencyDTO> currency;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
+        currency = new ArrayList<>();
+        dbHelper = new DBHelper(this);
+
         initToolbar();
         initTabLayout();
-//        getCurrency();
+        getCurrency();
     }
 
     private void choiceTheme() {
@@ -155,11 +162,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getCurrency() {
-        App.getApi().getData("Periodicity=0").enqueue(new Callback<List<CurrencyDTO>>() {
+        App.getApi().getData("0").enqueue(new Callback<List<CurrencyDTO>>() {
             @Override
             public void onResponse(Call<List<CurrencyDTO>> call, Response<List<CurrencyDTO>> response) {
-                currency = new ArrayList<>();
                 currency.addAll(response.body());
+
+                SQLiteDatabase database = dbHelper.getWritableDatabase();
+                database.delete(DBHelper.TABLE_CURRENCY, null, null);
+
+                for(CurrencyDTO cur : currency) {
+                    ContentValues contentValues = new ContentValues();
+
+                    contentValues.put(DBHelper.CUR_ID, cur.getCurID());
+                    contentValues.put(DBHelper.ABBREVIATION, cur.getCurAbbreviation());
+                    contentValues.put(DBHelper.DATE, cur.getDate());
+                    contentValues.put(DBHelper.NAME, cur.getCurName());
+                    contentValues.put(DBHelper.RATE, cur.getCurOfficialRate());
+                    contentValues.put(DBHelper.SCALE, cur.getCurScale());
+
+                    database.insert(DBHelper.TABLE_CURRENCY, null, contentValues);
+                }
+
+                Toast.makeText(getApplicationContext(), getText(R.string.toastGetCurrencySucces).toString(),
+                        Toast.LENGTH_LONG).show();
             }
 
             @Override

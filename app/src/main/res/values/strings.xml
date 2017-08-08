@@ -26,4 +26,7 @@
     <string name="choiceThemePositiveButton">Выбрать</string>
 
     <string name="toastGetCurrencyFailed">Не удалось загрузить курс валют!</string>
+    <string name="toastGetDatabaseCurrencyFailed">Не удалось загрузить данные из базы данных!</string>
+
+    <string name="toastGetCurrencySucces">Курс валют удачно загрузился!</string>
 </resources>
