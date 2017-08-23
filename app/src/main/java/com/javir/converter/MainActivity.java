@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.javir.converter.adapter.TabsPagerFragmentAdapter;
@@ -86,49 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    //Временно захардкодил курсы валют и некоторые строковые ресурсы
-    private void choiceCurrency() {
-        final String[] ITEMS = {"Русский рубль", "Украинская гривна", "Доллар США", "Евро"};
-        final int[] index = {-1};
-
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.choiceCurrencyTitle)
-                .setSingleChoiceItems(ITEMS, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "Вы выбрали " + ITEMS[which], Toast.LENGTH_LONG).show();
-                        index[0] = which;
-                    }
-                })
-                .setPositiveButton(R.string.choiceThemePositiveButton, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCE, Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        switch (index[0]) {
-                            case 0:
-                                editor.putFloat(Constants.PREFERENCE_CURRENCY, 0.3f).apply();
-                                recreate();
-                                break;
-                            case 1:
-                                editor.putFloat(Constants.PREFERENCE_CURRENCY, 0.07f).apply();
-                                recreate();
-                                break;
-                            case 2:
-                                editor.putFloat(Constants.PREFERENCE_CURRENCY, 2.0f).apply();
-                                recreate();
-                                break;
-                            case 3:
-                                editor.putFloat(Constants.PREFERENCE_CURRENCY, 2.2f).apply();
-                                recreate();
-                                break;
-                        }
-                    }
-                })
-                .create()
-                .show();
-    }
-
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.app_name);
@@ -139,9 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case (R.id.action_theme):
                         choiceTheme();
-                        return true;
-                    case (R.id.choice_currency):
-                        choiceCurrency();
                         return true;
                     default:
                         return false;

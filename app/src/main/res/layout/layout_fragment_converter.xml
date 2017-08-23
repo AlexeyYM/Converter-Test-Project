@@ -1,60 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+
+    <Spinner
+        android:id="@+id/spinnerInitialCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/convTextOldInput"
-        android:id="@+id/convInputTextOld"
-        android:textSize="16dp" />
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp" />
 
-    <EditText
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/arrowConverterFragment"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/inputConvSumOld"
-        android:hint="@string/inputText" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:paddingTop="16dp"
+        app:srcCompat="@mipmap/ic_trending_flat_black_24dp" />
+
+    <Spinner
+        android:id="@+id/spinnerResultCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        android:id="@+id/buttonConvert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="16dp"
         android:text="@string/conButtonText"
-        android:id="@+id/convOldButton"
-        android:layout_gravity="right" />
+        android:layout_below="@+id/textViewResultConverter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
+        android:id="@+id/textViewResultConverter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/convTextNewInput"
-        android:id="@+id/convInputTextNew"
-        android:textSize="16dp"
-        android:textIsSelectable="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/inputValue"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="16dp"
+        android:text="@string/resultConverterDefaultText" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:id="@+id/inputValue"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/arrowConverterFragment"
+        android:ems="10"
+        android:hint="@string/inputText"
         android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/inputConvSumNew"
-        android:hint="@string/inputText" />
+        android:paddingLeft="16dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/conButtonText"
-        android:id="@+id/convNewButton"
-        android:layout_gravity="right" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/convOutputText"
-        android:id="@+id/convOutputSum"
-        android:textSize="16dp"
-        android:textIsSelectable="true" />
-</LinearLayout>
+</RelativeLayout>

@@ -10,6 +10,8 @@
     <string name="convTextOldInput">Поле для ввода суммы в старых рублях:</string>
     <string name="convTextNewInput">Поле для вводе суммы в новых рублях:</string>
     <string name="convOutputText">Сумма в долларах</string>
+    
+    <string name="resultConverterDefaultText">Результат: </string>
 
     <string name="tab_item_converter">Конвертер</string>
     <string name="tab_item_denomination">Деноминатор</string>
@@ -27,6 +29,9 @@
 
     <string name="toastGetCurrencyFailed">Не удалось загрузить курс валют!</string>
     <string name="toastGetDatabaseCurrencyFailed">Не удалось загрузить данные из базы данных!</string>
+    <string name="toastEmptyTextInputField">Введите сумму!</string>
 
     <string name="toastGetCurrencySucces">Курс валют удачно загрузился!</string>
+
+    <string name="abbreviationBelRub">BYN</string>
 </resources>

@@ -59,7 +59,8 @@ public class FragmentDenomination extends AbstractTabFragment {
         TextView outputOldSum = (TextView) view.findViewById(R.id.outputOldText);
 
         if(inputOldSum.getText().length() == 0) {
-            Toast.makeText(context, "Введите сумму", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getText(R.string.toastEmptyTextInputField).toString(),
+                    Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -74,7 +75,8 @@ public class FragmentDenomination extends AbstractTabFragment {
         TextView outputNewSum = (TextView) view.findViewById(R.id.outputNewText);
 
         if(inputNewSum.getText().length() == 0) {
-            Toast.makeText(context, "Введите сумму", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getText(R.string.toastEmptyTextInputField).toString(),
+                    Toast.LENGTH_LONG).show();
             return;
         }
 

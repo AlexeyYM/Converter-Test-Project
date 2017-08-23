@@ -30,8 +30,9 @@ public class CurrencyListAdapter extends RecyclerView.Adapter<CurrencyListAdapte
 
     @Override
     public void onBindViewHolder(CurrencyViewHolder holder, int position) {
-        holder.title.setText(data.get(position).getCurName());
-        holder.rate.setText(data.get(position).getCurOfficialRate().toString());
+        holder.titleTextView.setText(data.get(position).getCurName());
+        double rate = data.get(position).getCurOfficialRate() / data.get(position).getCurScale();
+        holder.rateTextView.setText("" + String.format("%,.2f", rate) + " б.р.");
     }
 
     @Override
@@ -41,15 +42,15 @@ public class CurrencyListAdapter extends RecyclerView.Adapter<CurrencyListAdapte
 
     public static class CurrencyViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
-        TextView title;
-        TextView rate;
+        TextView titleTextView;
+        TextView rateTextView;
 
         public CurrencyViewHolder(View itemView) {
             super(itemView);
 
             cardView = (CardView) itemView.findViewById(R.id.currencyCardView);
-            title = (TextView) itemView.findViewById(R.id.currencyCardViewTitle);
-            rate = (TextView) itemView.findViewById(R.id.currencyCardViewRate);
+            titleTextView = (TextView) itemView.findViewById(R.id.currencyCardViewTitle);
+            rateTextView = (TextView) itemView.findViewById(R.id.currencyCardViewRate);
         }
     }
 }
