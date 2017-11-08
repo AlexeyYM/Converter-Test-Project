@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppThemeWhite" parent="@android:style/Theme.Material.Light"/>
+    <style name="AppThemeWhite" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/whiteColorPrimary</item>
+        <item name="colorPrimaryDark">@color/whiteColorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/whiteTextColorPrimary</item>
+        <item name="android:windowBackground">@color/whiteWindowBackground</item>
+    </style>
 
-    <style name="AppThemeBlack" parent="@android:style/Theme.Material"/>
+    <style name="AppThemeBlack" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/blackColorPrimary</item>
+        <item name="colorPrimaryDark">@color/blackColorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/blackTextColorPrimary</item>
+        <item name="android:windowBackground">@color/blackWindowBackground</item>
+        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:textColorHint">@color/blackTextColor</item>
+    </style>
 
     <style name="AppTheme.Base" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
