@@ -1,4 +1,4 @@
-package com.javir.converter;
+package com.javir.converter.fragments;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,11 +12,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.javir.converter.adapter.TabsPagerFragmentAdapter;
-import com.javir.converter.dto.CurrencyDTO;
+import com.javir.converter.R;
+import com.javir.converter.general.TabsPagerFragmentAdapter;
+import com.javir.converter.app.App;
+import com.javir.converter.dao.DBHelper;
+import com.javir.converter.model.CurrencyDTO;
+import com.javir.converter.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

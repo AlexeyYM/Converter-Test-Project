@@ -1,4 +1,4 @@
-package com.javir.converter.fragments;
+package com.javir.converter.general;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

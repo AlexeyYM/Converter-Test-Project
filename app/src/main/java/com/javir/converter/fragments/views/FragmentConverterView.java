@@ -1,11 +1,7 @@
-package com.javir.converter.fragments;
+package com.javir.converter.fragments.views;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,18 +14,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.javir.converter.Constants;
-import com.javir.converter.DBHelper;
-import com.javir.converter.MainActivity;
 import com.javir.converter.R;
-import com.javir.converter.dto.CurrencyDTO;
+import com.javir.converter.fragments.presenters.FragmentConverterPresenter;
+import com.javir.converter.general.AbstractTabFragment;
+import com.javir.converter.model.CurrencyDTO;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class FragmentConverter extends AbstractTabFragment {
+public class FragmentConverterView extends AbstractTabFragment {
     private static final int LAYOUT = R.layout.layout_fragment_converter;
 
     private Spinner spinnerInitial;
@@ -41,15 +34,15 @@ public class FragmentConverter extends AbstractTabFragment {
     private Map<String, CurrencyDTO> currencyDTOs;
     private String[] abbreviations;
 
-    private DBHelper dbHelper;
+    private FragmentConverterPresenter fragmentConverterPresenter;
 
     private double rateInitial;
     private double rateResult;
     private double result;
 
-    public static FragmentConverter getInstance(Context context) {
+    public static FragmentConverterView getInstance(Context context) {
         Bundle args = new Bundle();
-        FragmentConverter fragment = new FragmentConverter();
+        FragmentConverterView fragment = new FragmentConverterView();
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setTitle(context.getString(R.string.tab_item_converter));
@@ -62,7 +55,7 @@ public class FragmentConverter extends AbstractTabFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
         currencyDTOs = new HashMap<String, CurrencyDTO>();
-        dbHelper = new DBHelper(getContext());
+        fragmentConverterPresenter = new FragmentConverterPresenter(this);
 
         textViewResultConverter = (TextView) view.findViewById(R.id.textViewResultConverter);
         inputValue = (EditText) view.findViewById(R.id.inputValue);
@@ -72,8 +65,8 @@ public class FragmentConverter extends AbstractTabFragment {
         rateResult = 0;
         result = 0;
 
-        getCurrency();
-        abbreviations = initialAbbreviatons(currencyDTOs);
+        initializeCurrencyMap();
+        abbreviations = fragmentConverterPresenter.initialAbbreviatons(currencyDTOs);
 
 
         spinnerInitial = (Spinner) view.findViewById(R.id.spinnerInitialCurrency);
@@ -89,7 +82,8 @@ public class FragmentConverter extends AbstractTabFragment {
                 if (position == 0) {
                     rateInitial = 1;
                 } else {
-                    rateInitial = currencyDTOs.get(item).getCurOfficialRate() / currencyDTOs.get(item).getCurScale();
+                    rateInitial = fragmentConverterPresenter.rate(currencyDTOs.get(item).getCurOfficialRate(),
+                            currencyDTOs.get(item).getCurScale());
                 }
             }
 
@@ -113,7 +107,8 @@ public class FragmentConverter extends AbstractTabFragment {
                 if (position == 0) {
                     rateResult = 1;
                 } else {
-                    rateResult = currencyDTOs.get(item).getCurOfficialRate() / currencyDTOs.get(item).getCurScale();
+                    rateResult = fragmentConverterPresenter.rate(currencyDTOs.get(item).getCurOfficialRate(),
+                            currencyDTOs.get(item).getCurScale());
                 }
             }
 
@@ -132,7 +127,7 @@ public class FragmentConverter extends AbstractTabFragment {
                             Toast.LENGTH_LONG).show();
                 } else {
                     double value = Double.parseDouble(inputValue.getText().toString());
-                    result = value * (rateInitial / rateResult);
+                    result = fragmentConverterPresenter.convert(value, rateInitial, rateResult);
 
                     textViewResultConverter.setText(getString(R.string.resultConverterDefaultText).toString() +
                             " " + String.format("%,.2f", result));
@@ -144,48 +139,13 @@ public class FragmentConverter extends AbstractTabFragment {
         return view;
     }
 
-    public void getCurrency() {
-        SQLiteDatabase database = dbHelper.getReadableDatabase();
-
-        Cursor cursor = database.query(DBHelper.TABLE_CURRENCY, null, null, null, null, null, null);
-
-        if (cursor.moveToFirst()) {
-            int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
-            int curIdIndex = cursor.getColumnIndex(DBHelper.CUR_ID);
-            int dateIndex = cursor.getColumnIndex(DBHelper.DATE);
-            int abbreviationIndex = cursor.getColumnIndex(DBHelper.ABBREVIATION);
-            int scaleIndex = cursor.getColumnIndex(DBHelper.SCALE);
-            int nameIndex = cursor.getColumnIndex(DBHelper.NAME);
-            int rateIndex = cursor.getColumnIndex(DBHelper.RATE);
-            do {
-                CurrencyDTO currencyDTO = new CurrencyDTO();
-                currencyDTO.setCurID(cursor.getInt(curIdIndex));
-                currencyDTO.setDate(cursor.getString(dateIndex));
-                currencyDTO.setCurAbbreviation(cursor.getString(abbreviationIndex));
-                currencyDTO.setCurScale(cursor.getInt(scaleIndex));
-                currencyDTO.setCurName(cursor.getString(nameIndex));
-                currencyDTO.setCurOfficialRate(cursor.getDouble(rateIndex));
-
-                currencyDTOs.put(currencyDTO.getCurAbbreviation(), currencyDTO);
-            } while ((cursor.moveToNext()));
-        } else {
-            Toast.makeText(getContext(), getString(R.string.toastGetDatabaseCurrencyFailed).toString(),
-                    Toast.LENGTH_LONG).show();
-        }
-        cursor.close();
+    public void initializeCurrencyMap() {
+        currencyDTOs = fragmentConverterPresenter.getCurrencyFromDB(currencyDTOs);
     }
 
-    private String[] initialAbbreviatons(Map<String, CurrencyDTO> currencyDTOs) {
-        String[] result = new String[currencyDTOs.size() + 1];
-        result[0] = getString(R.string.abbreviationBelRub).toString();
-        int count = 1;
-
-        for (Map.Entry<String, CurrencyDTO> cur : currencyDTOs.entrySet()) {
-            result[count] = cur.getKey();
-            count++;
-        }
-
-        return result;
+    public void showError() {
+        Toast.makeText(getContext(), getString(R.string.toastGetDatabaseCurrencyFailed).toString(),
+                Toast.LENGTH_LONG).show();
     }
 
     public void setContext(Context context) {

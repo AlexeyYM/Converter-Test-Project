@@ -1,4 +1,4 @@
-package com.javir.converter.fragments;
+package com.javir.converter.fragments.views;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,16 +12,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.javir.converter.R;
+import com.javir.converter.fragments.presenters.FragmentDenominationPresenter;
+import com.javir.converter.general.AbstractTabFragment;
 
-public class FragmentDenomination extends AbstractTabFragment {
+public class FragmentDenominationView extends AbstractTabFragment {
     private static final int LAYOUT = R.layout.layout_fragment_denomination;
+
+    private FragmentDenominationPresenter fragmentDenominationPresenter;
 
     private Button denominationOldButton;
     private Button denominationNewButton;
 
-    public static FragmentDenomination getInstance(Context context) {
+    public static FragmentDenominationView getInstance(Context context) {
         Bundle args = new Bundle();
-        FragmentDenomination fragment = new FragmentDenomination();
+        FragmentDenominationView fragment = new FragmentDenominationView();
         fragment.setArguments(args);
         fragment.setContext(context);
         fragment.setTitle(context.getString(R.string.tab_item_denomination));
@@ -33,6 +37,8 @@ public class FragmentDenomination extends AbstractTabFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
+
+        fragmentDenominationPresenter = new FragmentDenominationPresenter(this);
 
         denominationOldButton = (Button) view.findViewById(R.id.denominationOldButton);
         denominationNewButton = (Button) view.findViewById(R.id.denominationNewButton);
@@ -65,7 +71,7 @@ public class FragmentDenomination extends AbstractTabFragment {
         }
 
         double inputValue = Double.parseDouble(inputOldSum.getText().toString());
-        double outputValue = convertOld(inputValue);
+        double outputValue = fragmentDenominationPresenter.convertOld(inputValue);
 
         outputOldSum.setText(String.format("%,.2f рублей", outputValue));
     }
@@ -81,17 +87,9 @@ public class FragmentDenomination extends AbstractTabFragment {
         }
 
         double inputValue = Double.parseDouble(inputNewSum.getText().toString());
-        double outputValue = convertNew(inputValue);
+        double outputValue = fragmentDenominationPresenter.convertNew(inputValue);
 
         outputNewSum.setText(String.format("%,.0f рублей", outputValue));
-    }
-
-    public double convertOld(double x) {
-        return x / 10000;
-    }
-
-    public double convertNew(double x) {
-        return x * 10000;
     }
 
     public void setContext(Context context) {

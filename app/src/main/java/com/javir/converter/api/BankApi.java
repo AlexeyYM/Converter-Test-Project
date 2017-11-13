@@ -1,6 +1,6 @@
 package com.javir.converter.api;
 
-import com.javir.converter.dto.CurrencyDTO;
+import com.javir.converter.model.CurrencyDTO;
 
 import java.util.List;
 

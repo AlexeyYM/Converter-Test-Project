@@ -1,4 +1,4 @@
-package com.javir.converter.adapter;
+package com.javir.converter.general;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.javir.converter.R;
-import com.javir.converter.dto.CurrencyDTO;
+import com.javir.converter.model.CurrencyDTO;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.javir.converter;
+package com.javir.converter.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

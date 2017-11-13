@@ -1,4 +1,4 @@
-package com.javir.converter.dto;
+package com.javir.converter.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

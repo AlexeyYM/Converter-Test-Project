@@ -9,9 +9,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".App"
+        android:name=".app.App"
         android:theme="@style/AppThemeWhite" >
-        <activity android:name=".MainActivity"
+        <activity android:name=".fragments.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

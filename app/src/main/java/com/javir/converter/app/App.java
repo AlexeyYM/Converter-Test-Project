@@ -1,7 +1,8 @@
-package com.javir.converter;
+package com.javir.converter.app;
 
 import android.app.Application;
 
+import com.javir.converter.utils.Constants;
 import com.javir.converter.api.BankApi;
 
 import retrofit2.Retrofit;

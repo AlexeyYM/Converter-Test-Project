@@ -1,14 +1,13 @@
-package com.javir.converter.adapter;
+package com.javir.converter.general;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.javir.converter.fragments.AbstractTabFragment;
-import com.javir.converter.fragments.FragmentConverter;
-import com.javir.converter.fragments.FragmentCurrencyList;
-import com.javir.converter.fragments.FragmentDenomination;
+import com.javir.converter.fragments.views.FragmentConverterView;
+import com.javir.converter.fragments.views.FragmentCurrencyListView;
+import com.javir.converter.fragments.views.FragmentDenominationView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +39,8 @@ public class TabsPagerFragmentAdapter extends FragmentPagerAdapter {
 
     private void initTabsMap(Context context) {
         tabs = new HashMap<>();
-        tabs.put(0, FragmentConverter.getInstance(context));
-        tabs.put(1, FragmentDenomination.getInstance(context));
-        tabs.put(2, FragmentCurrencyList.getInstance(context));
+        tabs.put(0, FragmentConverterView.getInstance(context));
+        tabs.put(1, FragmentDenominationView.getInstance(context));
+        tabs.put(2, FragmentCurrencyListView.getInstance(context));
     }
 }
