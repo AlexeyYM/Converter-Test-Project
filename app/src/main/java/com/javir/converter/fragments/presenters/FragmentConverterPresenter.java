@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
 import com.javir.converter.R;
+import com.javir.converter.app.App;
 import com.javir.converter.dao.DBHelper;
 import com.javir.converter.fragments.views.FragmentConverterView;
 import com.javir.converter.model.CurrencyDTO;
@@ -13,8 +14,6 @@ import java.util.Map;
 
 public class FragmentConverterPresenter {
     private final FragmentConverterView fragmentConverterView;
-
-    private DBHelper dbHelper;
 
     public FragmentConverterPresenter(@NonNull FragmentConverterView fragmentConverterView) {
         this.fragmentConverterView = fragmentConverterView;
@@ -29,9 +28,7 @@ public class FragmentConverterPresenter {
     }
 
     public Map<String, CurrencyDTO> getCurrencyFromDB(@NonNull Map<String, CurrencyDTO> currency) {
-        dbHelper = new DBHelper(fragmentConverterView.getContext());
-
-        SQLiteDatabase database = dbHelper.getReadableDatabase();
+        SQLiteDatabase database = App.getDbHelper().getReadableDatabase();
 
         Cursor cursor = database.query(DBHelper.TABLE_CURRENCY, null, null, null, null, null, null);
 

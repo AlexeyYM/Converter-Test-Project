@@ -1,10 +1,8 @@
-package com.javir.converter.fragments;
+package com.javir.converter.fragments.views;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,27 +13,23 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.javir.converter.R;
+import com.javir.converter.fragments.presenters.MainActivityPresenter;
 import com.javir.converter.general.TabsPagerFragmentAdapter;
-import com.javir.converter.app.App;
-import com.javir.converter.dao.DBHelper;
 import com.javir.converter.model.CurrencyDTO;
 import com.javir.converter.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivityView extends AppCompatActivity implements com.javir.converter.interfaces.MainActivityViewInterface {
     private static final int LAYOUT = R.layout.activity_main;
+
+    private MainActivityPresenter mainActivityPresenter;
 
     private Toolbar toolbar;
     private ViewPager viewPager;
 
     private List<CurrencyDTO> currency;
-    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +40,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
+        mainActivityPresenter = new MainActivityPresenter(this);
+
         currency = new ArrayList<>();
-        dbHelper = new DBHelper(this);
 
         initToolbar();
         initTabLayout();
-        getCurrency();
+        updateCurrency();
     }
 
     private void choiceTheme() {
@@ -119,36 +114,30 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void getCurrency() {
-        App.getApi().getData("0").enqueue(new Callback<List<CurrencyDTO>>() {
-            @Override
-            public void onResponse(Call<List<CurrencyDTO>> call, Response<List<CurrencyDTO>> response) {
-                currency.addAll(response.body());
+    @Override
+    public void updateCurrency() {
+        currency = mainActivityPresenter.updateCurrency();
+    }
 
-                SQLiteDatabase database = dbHelper.getWritableDatabase();
-                database.delete(DBHelper.TABLE_CURRENCY, null, null);
+    @Override
+    public void showSuccess() {
+        Toast.makeText(getApplicationContext(), getText(R.string.toastGetCurrencySucces).toString(),
+                Toast.LENGTH_LONG).show();
+    }
 
-                for(CurrencyDTO cur : currency) {
-                    ContentValues contentValues = new ContentValues();
+    @Override
+    public void showError() {
+        Toast.makeText(MainActivityView.this, getText(R.string.toastGetCurrencyFailed),
+                Toast.LENGTH_LONG).show();
+    }
 
-                    contentValues.put(DBHelper.CUR_ID, cur.getCurID());
-                    contentValues.put(DBHelper.ABBREVIATION, cur.getCurAbbreviation());
-                    contentValues.put(DBHelper.DATE, cur.getDate());
-                    contentValues.put(DBHelper.NAME, cur.getCurName());
-                    contentValues.put(DBHelper.RATE, cur.getCurOfficialRate());
-                    contentValues.put(DBHelper.SCALE, cur.getCurScale());
+    @Override
+    public List<CurrencyDTO> getCurrency() {
+        return currency;
+    }
 
-                    database.insert(DBHelper.TABLE_CURRENCY, null, contentValues);
-                }
-
-                Toast.makeText(getApplicationContext(), getText(R.string.toastGetCurrencySucces).toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<List<CurrencyDTO>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, getText(R.string.toastGetCurrencyFailed), Toast.LENGTH_LONG).show();
-            }
-        });
+    @Override
+    public void setCurrency(List<CurrencyDTO> currency) {
+        this.currency = currency;
     }
 }

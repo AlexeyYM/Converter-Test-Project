@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.MainActivity">
+    tools:context=".fragments.views.MainActivityView">
 
     <item
         android:id="@+id/action_theme"

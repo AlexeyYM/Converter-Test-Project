@@ -17,12 +17,13 @@ import android.widget.Toast;
 import com.javir.converter.R;
 import com.javir.converter.fragments.presenters.FragmentConverterPresenter;
 import com.javir.converter.general.AbstractTabFragment;
+import com.javir.converter.interfaces.FragmentConverterViewInterface;
 import com.javir.converter.model.CurrencyDTO;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class FragmentConverterView extends AbstractTabFragment {
+public class FragmentConverterView extends AbstractTabFragment implements FragmentConverterViewInterface {
     private static final int LAYOUT = R.layout.layout_fragment_converter;
 
     private Spinner spinnerInitial;
@@ -139,15 +140,23 @@ public class FragmentConverterView extends AbstractTabFragment {
         return view;
     }
 
+    @Override
     public void initializeCurrencyMap() {
         currencyDTOs = fragmentConverterPresenter.getCurrencyFromDB(currencyDTOs);
     }
 
+    @Override
     public void showError() {
         Toast.makeText(getContext(), getString(R.string.toastGetDatabaseCurrencyFailed).toString(),
                 Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
     public void setContext(Context context) {
         this.context = context;
     }

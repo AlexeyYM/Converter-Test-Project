@@ -14,12 +14,13 @@ import com.javir.converter.R;
 import com.javir.converter.fragments.presenters.FragmentCurrencyListPresenter;
 import com.javir.converter.general.AbstractTabFragment;
 import com.javir.converter.general.CurrencyListAdapter;
+import com.javir.converter.interfaces.FragmentCurrencyListViewInterface;
 import com.javir.converter.model.CurrencyDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentCurrencyListView extends AbstractTabFragment {
+public class FragmentCurrencyListView extends AbstractTabFragment implements FragmentCurrencyListViewInterface {
     public static final int LAYOUT = R.layout.layout_fragment_currency;
 
     private FragmentCurrencyListPresenter fragmentCurrencyListPresenter;
@@ -55,22 +56,31 @@ public class FragmentCurrencyListView extends AbstractTabFragment {
         return view;
     }
 
-    private void updateCurrency() {
+    @Override
+    public void updateCurrency() {
         fragmentCurrencyListPresenter.updateCurrencyList(currency);
 
         rv.getAdapter().notifyDataSetChanged();
     }
 
+    @Override
     public void showError() {
         Toast.makeText(getContext(), getString(R.string.toastGetDatabaseCurrencyFailed).toString(),
                 Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
     public void setCurrency(List<CurrencyDTO> currency) {
         this.currency = currency;
     }
 
-    private void setContext(Context context) {
+    @Override
+    public void setContext(Context context) {
         this.context = context;
     }
 }

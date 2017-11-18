@@ -4,10 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.javir.converter.fragments.views.FragmentDenominationView;
 
-/**
- * Created by alexeyy on 13.11.17.
- */
-
 public class FragmentDenominationPresenter {
     private final FragmentDenominationView denominationView;
 

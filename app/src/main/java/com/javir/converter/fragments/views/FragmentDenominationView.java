@@ -14,8 +14,9 @@ import android.widget.Toast;
 import com.javir.converter.R;
 import com.javir.converter.fragments.presenters.FragmentDenominationPresenter;
 import com.javir.converter.general.AbstractTabFragment;
+import com.javir.converter.interfaces.FragmentDenominationViewInterface;
 
-public class FragmentDenominationView extends AbstractTabFragment {
+public class FragmentDenominationView extends AbstractTabFragment implements FragmentDenominationViewInterface {
     private static final int LAYOUT = R.layout.layout_fragment_denomination;
 
     private FragmentDenominationPresenter fragmentDenominationPresenter;
@@ -60,6 +61,7 @@ public class FragmentDenominationView extends AbstractTabFragment {
         return view;
     }
 
+    @Override
     public void denominationOldButton() {
         EditText inputOldSum = (EditText) view.findViewById(R.id.inputOld);
         TextView outputOldSum = (TextView) view.findViewById(R.id.outputOldText);
@@ -76,6 +78,7 @@ public class FragmentDenominationView extends AbstractTabFragment {
         outputOldSum.setText(String.format("%,.2f рублей", outputValue));
     }
 
+    @Override
     public void denominationNewButton() {
         EditText inputNewSum = (EditText) view.findViewById(R.id.inputNew);
         TextView outputNewSum = (TextView) view.findViewById(R.id.outputNewText);
@@ -92,6 +95,17 @@ public class FragmentDenominationView extends AbstractTabFragment {
         outputNewSum.setText(String.format("%,.0f рублей", outputValue));
     }
 
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
     public void setContext(Context context) {
         this.context = context;
     }
