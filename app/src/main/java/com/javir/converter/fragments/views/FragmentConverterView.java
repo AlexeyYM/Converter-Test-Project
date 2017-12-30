@@ -18,7 +18,7 @@ import com.javir.converter.R;
 import com.javir.converter.fragments.presenters.FragmentConverterPresenter;
 import com.javir.converter.general.AbstractTabFragment;
 import com.javir.converter.interfaces.FragmentConverterViewInterface;
-import com.javir.converter.model.CurrencyDTO;
+import com.javir.converter.model.CurrencyModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class FragmentConverterView extends AbstractTabFragment implements Fragme
     private Button buttonConvert;
     private EditText inputValue;
 
-    private Map<String, CurrencyDTO> currencyDTOs;
+    private Map<String, CurrencyModel> currencyDTOs;
     private String[] abbreviations;
 
     private FragmentConverterPresenter fragmentConverterPresenter;
@@ -55,7 +55,7 @@ public class FragmentConverterView extends AbstractTabFragment implements Fragme
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(LAYOUT, container, false);
-        currencyDTOs = new HashMap<String, CurrencyDTO>();
+        currencyDTOs = new HashMap<String, CurrencyModel>();
         fragmentConverterPresenter = new FragmentConverterPresenter(this);
 
         textViewResultConverter = (TextView) view.findViewById(R.id.textViewResultConverter);

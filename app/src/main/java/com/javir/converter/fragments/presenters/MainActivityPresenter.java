@@ -1,14 +1,12 @@
 package com.javir.converter.fragments.presenters;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 
 import com.javir.converter.app.App;
-import com.javir.converter.dao.DBHelper;
+import com.javir.converter.dao.CurrencyDAO;
 import com.javir.converter.fragments.views.MainActivityView;
 import com.javir.converter.interfaces.MainActivityPresenterInterface;
-import com.javir.converter.model.CurrencyDTO;
+import com.javir.converter.model.CurrencyModel;
 
 import java.util.List;
 
@@ -19,42 +17,28 @@ import retrofit2.Response;
 public class MainActivityPresenter implements MainActivityPresenterInterface {
     private MainActivityView mainActivityView;
 
-    private List<CurrencyDTO> currency = null;
+    private List<CurrencyModel> currency = null;
 
     public MainActivityPresenter(@NonNull MainActivityView mainActivityView) {
         this.mainActivityView = mainActivityView;
     }
 
     @Override
-    public List<CurrencyDTO> updateCurrency() {
+    public List<CurrencyModel> updateCurrency() {
         currency = mainActivityView.getCurrency();
 
-        App.getApi().getData("0").enqueue(new Callback<List<CurrencyDTO>>() {
+        App.getApi().getData("0").enqueue(new Callback<List<CurrencyModel>>() {
             @Override
-            public void onResponse(Call<List<CurrencyDTO>> call, Response<List<CurrencyDTO>> response) {
+            public void onResponse(Call<List<CurrencyModel>> call, Response<List<CurrencyModel>> response) {
                 currency.addAll(response.body());
 
-                SQLiteDatabase database = App.getDbHelper().getWritableDatabase();
-                database.delete(DBHelper.TABLE_CURRENCY, null, null);
-
-                for(CurrencyDTO cur : currency) {
-                    ContentValues contentValues = new ContentValues();
-
-                    contentValues.put(DBHelper.CUR_ID, cur.getCurID());
-                    contentValues.put(DBHelper.ABBREVIATION, cur.getCurAbbreviation());
-                    contentValues.put(DBHelper.DATE, cur.getDate());
-                    contentValues.put(DBHelper.NAME, cur.getCurName());
-                    contentValues.put(DBHelper.RATE, cur.getCurOfficialRate());
-                    contentValues.put(DBHelper.SCALE, cur.getCurScale());
-
-                    database.insert(DBHelper.TABLE_CURRENCY, null, contentValues);
-                }
+                CurrencyDAO.addCurrencysInDB(currency);
 
                 mainActivityView.showSuccess();
             }
 
             @Override
-            public void onFailure(Call<List<CurrencyDTO>> call, Throwable t) {
+            public void onFailure(Call<List<CurrencyModel>> call, Throwable t) {
                 mainActivityView.showError();
             }
         });

@@ -8,16 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.javir.converter.R;
-import com.javir.converter.model.CurrencyDTO;
+import com.javir.converter.model.CurrencyModel;
 
 import java.util.List;
 
 public class CurrencyListAdapter extends RecyclerView.Adapter<CurrencyListAdapter.CurrencyViewHolder> {
     public static final int LAYOUT = R.layout.currency_item;
 
-    private List<CurrencyDTO> data;
+    private List<CurrencyModel> data;
 
-    public CurrencyListAdapter(List<CurrencyDTO> data) {
+    public CurrencyListAdapter(List<CurrencyModel> data) {
         this.data = data;
     }
 

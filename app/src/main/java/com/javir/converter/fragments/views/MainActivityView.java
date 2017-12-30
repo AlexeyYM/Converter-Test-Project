@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.javir.converter.R;
 import com.javir.converter.fragments.presenters.MainActivityPresenter;
 import com.javir.converter.general.TabsPagerFragmentAdapter;
-import com.javir.converter.model.CurrencyDTO;
+import com.javir.converter.model.CurrencyModel;
 import com.javir.converter.utils.Constants;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class MainActivityView extends AppCompatActivity implements com.javir.con
     private Toolbar toolbar;
     private ViewPager viewPager;
 
-    private List<CurrencyDTO> currency;
+    private List<CurrencyModel> currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,12 +132,12 @@ public class MainActivityView extends AppCompatActivity implements com.javir.con
     }
 
     @Override
-    public List<CurrencyDTO> getCurrency() {
+    public List<CurrencyModel> getCurrency() {
         return currency;
     }
 
     @Override
-    public void setCurrency(List<CurrencyDTO> currency) {
+    public void setCurrency(List<CurrencyModel> currency) {
         this.currency = currency;
     }
 }

@@ -3,7 +3,7 @@ package com.javir.converter.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CurrencyDTO {
+public class CurrencyModel {
     @SerializedName("Cur_ID")
     @Expose
     private Integer curID;

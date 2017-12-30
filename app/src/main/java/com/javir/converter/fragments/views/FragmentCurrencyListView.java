@@ -15,7 +15,7 @@ import com.javir.converter.fragments.presenters.FragmentCurrencyListPresenter;
 import com.javir.converter.general.AbstractTabFragment;
 import com.javir.converter.general.CurrencyListAdapter;
 import com.javir.converter.interfaces.FragmentCurrencyListViewInterface;
-import com.javir.converter.model.CurrencyDTO;
+import com.javir.converter.model.CurrencyModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class FragmentCurrencyListView extends AbstractTabFragment implements Fra
 
     private FragmentCurrencyListPresenter fragmentCurrencyListPresenter;
 
-    private List<CurrencyDTO> currency;
+    private List<CurrencyModel> currency;
 
     private RecyclerView rv;
 
@@ -75,7 +75,7 @@ public class FragmentCurrencyListView extends AbstractTabFragment implements Fra
     }
 
     @Override
-    public void setCurrency(List<CurrencyDTO> currency) {
+    public void setCurrency(List<CurrencyModel> currency) {
         this.currency = currency;
     }
 
