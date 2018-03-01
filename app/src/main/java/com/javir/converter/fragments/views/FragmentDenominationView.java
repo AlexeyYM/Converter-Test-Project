@@ -12,9 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.javir.converter.R;
+import com.javir.converter.app.App;
 import com.javir.converter.fragments.presenters.FragmentDenominationPresenter;
 import com.javir.converter.general.AbstractTabFragment;
 import com.javir.converter.interfaces.FragmentDenominationViewInterface;
+
+import es.dmoral.toasty.Toasty;
 
 public class FragmentDenominationView extends AbstractTabFragment implements FragmentDenominationViewInterface {
     private static final int LAYOUT = R.layout.layout_fragment_denomination;
@@ -67,8 +70,11 @@ public class FragmentDenominationView extends AbstractTabFragment implements Fra
         TextView outputOldSum = (TextView) view.findViewById(R.id.outputOldText);
 
         if(inputOldSum.getText().length() == 0) {
-            Toast.makeText(context, getText(R.string.toastEmptyTextInputField).toString(),
-                    Toast.LENGTH_LONG).show();
+            /*Toast.makeText(context, getText(R.string.toastEmptyTextInputField).toString(),
+                    Toast.LENGTH_LONG).show();*/
+
+            Toasty.error(App.getContext(),  getText(R.string.toastEmptyTextInputField).toString(),
+                    Toast.LENGTH_LONG, true).show();
             return;
         }
 
@@ -84,8 +90,11 @@ public class FragmentDenominationView extends AbstractTabFragment implements Fra
         TextView outputNewSum = (TextView) view.findViewById(R.id.outputNewText);
 
         if(inputNewSum.getText().length() == 0) {
-            Toast.makeText(context, getText(R.string.toastEmptyTextInputField).toString(),
-                    Toast.LENGTH_LONG).show();
+            /*Toast.makeText(context, getText(R.string.toastEmptyTextInputField).toString(),
+                    Toast.LENGTH_LONG).show();*/
+
+            Toasty.error(App.getContext(),  getText(R.string.toastEmptyTextInputField).toString(),
+                    Toast.LENGTH_LONG, true).show();
             return;
         }
 

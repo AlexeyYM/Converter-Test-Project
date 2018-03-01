@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.javir.converter.R;
+import com.javir.converter.app.App;
 import com.javir.converter.fragments.presenters.FragmentConverterPresenter;
 import com.javir.converter.general.AbstractTabFragment;
 import com.javir.converter.interfaces.FragmentConverterViewInterface;
@@ -22,6 +23,8 @@ import com.javir.converter.model.CurrencyModel;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
 
 public class FragmentConverterView extends AbstractTabFragment implements FragmentConverterViewInterface {
     private static final int LAYOUT = R.layout.layout_fragment_converter;
@@ -124,8 +127,11 @@ public class FragmentConverterView extends AbstractTabFragment implements Fragme
             @Override
             public void onClick(View view) {
                 if (inputValue.getText().length() == 0) {
-                    Toast.makeText(getContext(), getText(R.string.toastEmptyTextInputField).toString(),
-                            Toast.LENGTH_LONG).show();
+                    /*Toast.makeText(getContext(), getText(R.string.toastEmptyTextInputField).toString(),
+                            Toast.LENGTH_LONG).show();*/
+
+                    Toasty.error(App.getContext(),  getText(R.string.toastEmptyTextInputField).toString(),
+                            Toast.LENGTH_LONG, true).show();
                 } else {
                     double value = Double.parseDouble(inputValue.getText().toString());
                     result = fragmentConverterPresenter.convert(value, rateInitial, rateResult);
@@ -147,8 +153,11 @@ public class FragmentConverterView extends AbstractTabFragment implements Fragme
 
     @Override
     public void showError() {
-        Toast.makeText(getContext(), getString(R.string.toastGetDatabaseCurrencyFailed).toString(),
-                Toast.LENGTH_LONG).show();
+        /*Toast.makeText(getContext(), getString(R.string.toastGetDatabaseCurrencyFailed).toString(),
+                Toast.LENGTH_LONG).show();*/
+
+        Toasty.error(App.getContext(),  getString(R.string.toastGetDatabaseCurrencyFailed).toString(),
+                Toast.LENGTH_LONG, true).show();
     }
 
     @Override

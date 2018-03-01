@@ -9,10 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.javir.converter.R;
+import com.javir.converter.app.App;
 import com.javir.converter.fragments.presenters.MainActivityPresenter;
 import com.javir.converter.general.TabsPagerFragmentAdapter;
 import com.javir.converter.model.CurrencyModel;
@@ -21,8 +23,12 @@ import com.javir.converter.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class MainActivityView extends AppCompatActivity implements com.javir.converter.interfaces.MainActivityViewInterface {
     private static final int LAYOUT = R.layout.activity_main;
+
+    private final String TAG = "MainActivity";
 
     private MainActivityPresenter mainActivityPresenter;
 
@@ -36,6 +42,7 @@ public class MainActivityView extends AppCompatActivity implements com.javir.con
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCE, Context.MODE_PRIVATE);
         int theme = sharedPreferences.getInt(Constants.PREFERENCE_THEME, R.style.AppThemeWhite);
         setTheme(theme);
+        Log.d(TAG, "Theme sets");
 
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
@@ -58,7 +65,9 @@ public class MainActivityView extends AppCompatActivity implements com.javir.con
                 .setSingleChoiceItems(ITEMS, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getApplicationContext(), "Выбрана " + ITEMS[which] + " тема", Toast.LENGTH_SHORT).show();
+                        /*Toast.makeText(getApplicationContext(), "Выбрана " + ITEMS[which] + " тема", Toast.LENGTH_SHORT).show();*/
+
+                        Toasty.info(App.getContext(), "Выбрана " + ITEMS[which] + " тема", Toast.LENGTH_LONG, true).show();
                         index[0] = which;
                     }
                 })
@@ -71,12 +80,16 @@ public class MainActivityView extends AppCompatActivity implements com.javir.con
                             case 0:
                                 editor.putInt(Constants.PREFERENCE_THEME, R.style.AppThemeWhite)
                                         .apply();
+                                Log.d(TAG, "White theme");
                                 recreate();
+                                Log.d(TAG, "Recreate");
                                 break;
                             case 1:
                                 editor.putInt(Constants.PREFERENCE_THEME, R.style.AppThemeBlack)
                                         .apply();
+                                Log.d(TAG, "Black theme");
                                 recreate();
+                                Log.d(TAG, "Recreate");
                                 break;
                         }
                     }
@@ -121,14 +134,20 @@ public class MainActivityView extends AppCompatActivity implements com.javir.con
 
     @Override
     public void showSuccess() {
-        Toast.makeText(getApplicationContext(), getText(R.string.toastGetCurrencySucces).toString(),
-                Toast.LENGTH_LONG).show();
+        /*Toast.makeText(getApplicationContext(), getText(R.string.toastGetCurrencySucces).toString(),
+                Toast.LENGTH_LONG).show();*/
+
+        Toasty.success(App.getContext(), getText(R.string.toastGetCurrencySucces).toString(),
+                Toast.LENGTH_LONG, true).show();
     }
 
     @Override
     public void showError() {
-        Toast.makeText(MainActivityView.this, getText(R.string.toastGetCurrencyFailed),
-                Toast.LENGTH_LONG).show();
+        /*Toast.makeText(MainActivityView.this, getText(R.string.toastGetCurrencyFailed),
+                Toast.LENGTH_LONG).show();*/
+
+        Toasty.error(App.getContext(), getText(R.string.toastGetCurrencyFailed).toString(),
+                Toast.LENGTH_LONG, true).show();
     }
 
     @Override

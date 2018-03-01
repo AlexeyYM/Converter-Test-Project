@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp">
 
     <TextView
+        android:id="@+id/textInputOld"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/inputOldText"
-        android:id="@+id/textInputOld"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="16dp"
-        android:textIsSelectable="true" />
+        android:layout_alignParentTop="true"
+        android:text="@string/inputOldText"
+        android:textIsSelectable="true"
+        android:textSize="16dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,16 +26,20 @@
         android:hint="@string/inputText" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        android:id="@+id/denominationOldButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/conButtonText"
-        android:id="@+id/denominationOldButton"
-        android:layout_below="@+id/textInputOld"
-        android:layout_toRightOf="@+id/inputOld"
-        android:layout_toEndOf="@+id/inputOld"
+        android:layout_alignParentEnd="false"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false" />
+        android:layout_below="@+id/textInputOld"
+        android:layout_toEndOf="@+id/inputOld"
+        android:layout_toRightOf="@+id/inputOld"
+        android:background="@color/whiteColorPrimary"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/conButtonText"
+        android:textColor="@color/whiteTextColorPrimary" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,15 +73,19 @@
         android:inputType="number|numberDecimal" />
 
     <Button
+        android:id="@+id/denominationNewButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/conButtonText"
-        android:id="@+id/denominationNewButton"
-        android:layout_alignTop="@+id/inputNew"
-        android:layout_toRightOf="@+id/inputNew"
-        android:layout_toEndOf="@+id/inputNew"
         android:layout_alignParentRight="true"
-        style="?android:attr/buttonStyleSmall" />
+        android:layout_alignTop="@+id/inputNew"
+        android:layout_toEndOf="@+id/inputNew"
+        android:layout_toRightOf="@+id/inputNew"
+        android:background="@color/whiteColorPrimary"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/conButtonText"
+        android:textColor="@color/whiteTextColorPrimary" />
 
     <TextView
         android:layout_width="wrap_content"

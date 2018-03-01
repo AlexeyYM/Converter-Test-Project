@@ -10,9 +10,9 @@
         android:id="@+id/spinnerInitialCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentTop="false"
+        android:layout_alignLeft="@+id/inputValue"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/inputValue"
         android:paddingLeft="16dp"
         android:paddingTop="16dp" />
 
@@ -32,19 +32,28 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp" />
 
     <Button
         android:id="@+id/buttonConvert"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:paddingLeft="16dp"
-        android:text="@string/conButtonText"
-        android:layout_below="@+id/textViewResultConverter"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewResultConverter"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/whiteColorPrimary"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/conButtonText"
+        android:textAlignment="center"
+        android:textColor="@color/whiteTextColorPrimary" />
 
     <TextView
         android:id="@+id/textViewResultConverter"
@@ -61,8 +70,8 @@
         android:id="@+id/inputValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/buttonConvert"
+        android:layout_alignStart="@+id/buttonConvert"
         android:layout_below="@+id/arrowConverterFragment"
         android:ems="10"
         android:hint="@string/inputText"
